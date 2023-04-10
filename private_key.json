@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "firstbot-auug",
+  "private_key_id": "16b6c79c4fa5094bb4dde6598c4909af548861a9",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCjvunxok8KirBe\nDPOdbB0OACl4tJlR0UdusW2DEwFOZKSSI8u3oYE8ZtkKtKZNr65raxRh4sfGxx1q\n0mJQ8XFHUQzZLLSNMlnYg2EKC8KIDpxNPxVBLWvYXj7VF3fPX3uaf9JFUwGeGmq5\n/9qh41omdXluKduj6+LlGW1MgxJlUdfb7uZzBMOutXLAWRqTtGCs+hCKXsdWizIQ\nqE1svZjnDdvFqwjzKUFM7RCqVQwi+RvHxo8co1+m930w06jTZN+4KpIPYM/08KgH\nAbh0ChO4Lr6Ajn06ArmO1Ft5bBNUey0f08KJk3a00iyZnBt24kjyto9D7obzUU6S\nt3IzLpwVAgMBAAECggEAFrbN9vHf6wNwEavUQ1sS8LU/C3pp5jqUoRtFqLADN1+o\noIkMok1qAvn1U5HZm98p38a7zhRKSB2oy/+hGb9USmNI1/tmlEuOwQUAegdFleAI\n+IIurZriYeI47xBRU1fYaoceoPUxvT/G3ERMjLZf9APJs2llCWkYUVVknv9zltA5\nxhdcsPYYt+0MvlOd1k0LcMP08VhDerwhCuLVQrwysF6q8aFs4xNRhqsXgnaVdp4x\nZSYjk7u+5Ys6Wx7Lrz7nIb6xu33efgz7JAwdjTtC3H7lx/R9dVyttm9lyEz/gXHY\nbiYhUrxTFOXhN4quRlBFLN9KeSaX9olw2FoFDJu3BQKBgQDO5L5HRZJuHK1D/LUn\nJUkM0kvmzrdhr6/d6cthcIVE5bfj5T7jO4Pmkp8AYJuOOqsPYrn/83PongZO5rhD\n58zWmVeS8CO70kjfNga3+lpc9emWLtAZsD6gUtGdfLw5a+i4WQ2npUWmA1+BGKtV\nPIl2GBmyxrhoB2R6Xsm2+K9P3wKBgQDKnG1lhoWTjKG/NoWeR1Y+QtT5rx30Vk2F\nzAXyRuozfi+bHDH0bHtZ8I0i6gHO3GcqoO4DfgWEdX6LoQ9Y7E87bG/yBcPoZ9Sb\n/DoBpfVvS92FndoO5OpH8rxr01OTxz/Pl3pXlGy9Xov7dyTRk5HciXF8T6zd+0n4\nc0N+nHGCiwKBgQCls8y19oG90RfwcNCB5rnoG/IQjJWRFo3rVRnAE8eZE8dBLlU8\n12jf3aSdP8K2mkRxEShZV5oIv6/bt6vzLw7+/VeHZu+nuVcF9xZQeaGv/IC1+Q5Q\n1LiD3XDnCoUSFFwScbifAZ6TxPXTxndK0C5kOA81ATWmk+0kmRBDjE+UzwKBgH0M\n2RQ9V7o+pSIAQ63x94/L7ekBJSrGDWjUCKOFE02ex0EjwM1MG0HijymKZn1HWUFd\nPCnZoQwk/GqviGpox2o0vk8RMd4CH536qc6UoIwFtf6e85QXw2WOsq6WKtJdusuk\ngXUGfarPbPRSj93uB6unBO0lu9ryGrCGa5T8d66LAoGBAMNQRbm1hNfxbwxW9/Kz\n5q2R70nniwULfqj6Z2HGah83jk8rWNx6qlLC1ZefXZPnt6vM9Cf3cSnX4WB1Xzw1\nMKF2EhNCYvbK3EAGOub+/u29KDFptwkfV0pGuvnr0rtQ/LWjG9GcKdVnZM4R16aY\n/VRJGx+ZkLz6MFWPpazKTw7z\n-----END PRIVATE KEY-----\n",
+  "client_email": "ulad-islau-production@firstbot-auug.iam.gserviceaccount.com",
+  "client_id": "111870328327123907107",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ulad-islau-production%40firstbot-auug.iam.gserviceaccount.com"
+}
