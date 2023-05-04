@@ -3,6 +3,7 @@ from aiogram.types import CallbackQuery, Message, InlineKeyboardMarkup, InlineKe
 from aiogram.utils.callback_data import CallbackData
 from aiogram.utils.exceptions import BadRequest
 
+from crud import CRUDUser
 from handlers.users.Dialogflow import Dialogflow
 from loader import bot
 from states.users.mainState import MainState
@@ -23,6 +24,20 @@ class Main:
             ]
         )
 
+    @staticmethod
+    async def replyExpert_ikb():
+        return InlineKeyboardMarkup(
+            inline_keyboard=[
+                [
+                    InlineKeyboardButton(text="Ответить", callback_data=MainForm_CB.new("askQuestionSpecialist",
+                                                                                        "getQuestionSpecialist", 0, 0)
+                                         ),
+                    InlineKeyboardButton(text="◀️ Назад", callback_data=MainForm_CB.new("MainMenu", 0, 0, 0)
+                                         )
+                ]
+            ]
+        )
+
     @staticmethod  # Главное меню
     async def start_ikb() -> InlineKeyboardMarkup:
         """
@@ -30,13 +45,15 @@ class Main:
         :return:
         """
         data_start = {
-            "Задать вопрос": "askQuestion"
+            "Задать вопрос боту": {"target": "askQuestionBot", "action": "getQuestionBot"},
+            "Задать вопрос специалисту": {"target": "askQuestionSpecialist", "action": "getQuestionSpecialist"}
         }
         return InlineKeyboardMarkup(
             inline_keyboard=[
                 [
                     InlineKeyboardButton(text=menu,
-                                         callback_data=MainForm_CB.new(menu_target, "getQuestion", 0, 0)
+                                         callback_data=MainForm_CB.new(menu_target['target'],
+                                                                       menu_target["action"], 0, 0)
                                          )
                 ] for menu, menu_target in data_start.items()
             ]
@@ -53,11 +70,19 @@ class Main:
                     await callback.message.edit_text(text="Я бот который поможет тебе с часто задаваемыми вопросами",
                                                      reply_markup=await Main.start_ikb())
 
-                elif data.get("target") == "askQuestion":
-                    if data.get("action") == "getQuestion":
+                elif data.get("target") == "askQuestionBot":
+                    if data.get("action") == "getQuestionBot":
                         await callback.message.edit_text(text="Введите ваш вопрос ⬇️",
                                                          reply_markup=await Main.back_ikb())
-                        await MainState.Answer.set()
+                        await MainState.AnswerBot.set()
+
+                elif data.get("target") == "askQuestionSpecialist":
+                    if data.get("action") == "getQuestionSpecialist":
+                        user = await CRUDUser.get(user_id=callback.from_user.id)
+                        user.specialist = True
+                        await CRUDUser.update(user=user)
+                        await callback.message.edit_text(text="Введите ваш вопрос и вам в ближайшее время ответит"
+                                                              "первый свободный специалист")
 
         if message:
             await message.delete()
@@ -71,7 +96,7 @@ class Main:
                 pass
 
             if state:
-                if await state.get_state() == "MainState:Answer":
+                if await state.get_state() == "MainState:AnswerBot":
                     dialogflow = Dialogflow(text=message.text)
                     answer = await dialogflow.get_dialogflow_response()
                     await message.answer(text=answer,

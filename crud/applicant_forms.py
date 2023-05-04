@@ -2,82 +2,42 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import select, update, delete, and_
 
-from models import ApplicantForm, create_async_session
-from schemas import ApplicantFormSchema, ApplicantFormInDBSchema
+from models import User, create_async_session
+from schemas import UsersSchema, UsersInDBSchema
 
 
-class CRUDApplicantForm(object):
+class CRUDUser(object):
 
     @staticmethod
     @create_async_session
-    async def add(applicant_form: ApplicantFormSchema, session: AsyncSession = None) -> ApplicantFormInDBSchema | None:
-        applicant_form = ApplicantForm(
-            **applicant_form.dict()
+    async def add(user: UsersSchema, session: AsyncSession = None) -> UsersInDBSchema | None:
+        users = User(
+            **user.dict()
         )
-        session.add(applicant_form)
+        session.add(users)
         try:
             await session.commit()
-        except IntegrityError:
-            pass
+        except IntegrityError as e:
+            print(e)
         else:
-            await session.refresh(applicant_form)
-            return ApplicantFormInDBSchema(**applicant_form.__dict__)
+            await session.refresh(users)
+            return UsersInDBSchema(**users.__dict__)
 
     @staticmethod
     @create_async_session
-    async def delete(applicant_form_id: int, session: AsyncSession = None) -> None:
-        await session.execute(
-            delete(ApplicantForm)
-            .where(ApplicantForm.id == applicant_form_id)
+    async def get(user_id: int, session: AsyncSession = None) -> UsersInDBSchema | None:
+        user = await session.execute(
+            select(User).where(User.user_id == user_id)
         )
-        await session.commit()
+        if users := user.first():
+            return UsersInDBSchema(**users[0].__dict__)
 
     @staticmethod
     @create_async_session
-    async def get(applicant_form_id: int = None,
-                  user_id: int = None,
-                  session: AsyncSession = None) -> ApplicantFormInDBSchema | None:
-        if user_id:
-            applicant_form = await session.execute(
-                select(ApplicantForm)
-                .where(ApplicantForm.user_id == user_id)
-            )
-        else:
-            applicant_form = await session.execute(
-                select(ApplicantForm)
-                .where(ApplicantForm.id == applicant_form_id)
-            )
-        if applicant_form := applicant_form.first():
-            return ApplicantFormInDBSchema(**applicant_form[0].__dict__)
-
-    @staticmethod
-    @create_async_session
-    async def get_all(user_id: int = None,
-                      is_published: bool = None,
-                      session: AsyncSession = None) -> list[ApplicantFormInDBSchema]:
-        if user_id:
-            applicant_forms = await session.execute(
-                select(ApplicantForm)
-                .where(ApplicantForm.user_id == user_id)
-            )
-        elif is_published:
-            applicant_forms = await session.execute(
-                select(ApplicantForm)
-                .where(ApplicantForm.is_published == is_published)
-            )
-        else:
-            applicant_forms = await session.execute(
-                select(ApplicantForm)
-                .order_by(ApplicantForm.id)
-            )
-        return [ApplicantFormInDBSchema(**applicant_form[0].__dict__) for applicant_form in applicant_forms]
-
-    @staticmethod
-    @create_async_session
-    async def update(applicant_form: ApplicantFormInDBSchema, session: AsyncSession = None) -> None:
+    async def update(user: UsersInDBSchema, session: AsyncSession = None) -> None:
         await session.execute(
-            update(ApplicantForm)
-            .where(ApplicantForm.id == applicant_form.id)
-            .values(**applicant_form.dict())
+            update(User)
+            .where(User.id == user.id)
+            .values(**user.dict())
         )
         await session.commit()
